@@ -8,24 +8,37 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>申请保修</title>
+    <title>申请报修</title>
     <link rel="stylesheet" type="text/css" href="/user/css/repairmentApply.css">
     <script type="text/javascript" src="/user/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/user/js/utils.js"></script>
     <script type="text/javascript" src="/user/js/repairmentApply.js"></script>
 </head>
 <body>
+    <input type="hidden" id="userID" value="1"/>
     <div class="form">
         <div class="step">
-            <label class="name">身份</label>
+            <label class="name">报修地点</label>
             <div class="select-view">
-                <select class="select">
-                    <option class="option default" value="-1">请选择</option>
-                    <option class="option" value="0">教师</option>
-                    <option class="option" value="1">学生</option>
-                </select>
+                <input class="select location input" type="text" placeholder="请输入保修地点" maxlength="250"/>
             </div>
-            <a class="link" href="javascript:;" title="如何查看我的身份"><img src="/user/images/questionMark.png">如何查看我的身份</a>
         </div>
+        <div class="step">
+            <label class="name">手机号码</label>
+            <div class="select-view">
+                <input class="select phone input" type="text" placeholder="请输入手机号码" maxlength="20"/>
+            </div>
+        </div>
+    </div>
+    <div class="infoPanel">
+        <div class="info"><label class="title">申&ensp;请&ensp;人：</label><label class="user"></label></div>
+        <div class="info"><label class="title">地&emsp;&emsp;点：</label><label class="location"></label></div>
+        <div class="info"><label class="title">电&emsp;&emsp;话：</label><label class="phone"></label></div>
+        <div class="info"><label class="title">预约时间：</label><label class="beginTime"></label></div>
+        <div class="info"><label class="title">状&emsp;&emsp;态：</label><label class="status"></label></div>
+        <div class="info"><label class="title">处&ensp;理&ensp;人：</label><label class="operator"></label></div>
+        <div class="info"><label class="title">备&emsp;&emsp;注：</label><label class="userDescription"></label></div>
+        <div class="info"><label class="title">报修信息：</label><label class="repairment"></label></div>
     </div>
 </body>
 </html>
