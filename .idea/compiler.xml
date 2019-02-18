@@ -7,9 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="admin" />
         <module name="operator" />
         <module name="user" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="entity" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>

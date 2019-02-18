@@ -26,7 +26,7 @@
         <!--</mvc:interceptor>-->
     <!--</mvc:interceptors>-->
 
-    <mvc:view-controller path="/" view-name="/repairmentApply"/>
+    <mvc:view-controller path="/" view-name="/orderListView"/>
     <!--<mvc:view-controller path="/" view-name="user/user/login"/>-->
 
 </beans>

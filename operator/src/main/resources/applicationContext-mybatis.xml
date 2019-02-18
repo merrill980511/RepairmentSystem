@@ -41,13 +41,13 @@
         <!-- 找到mybatis配置文件的位置 -->
         <property name="configLocation"  value="classpath:mybatis-config.xml"/>
         <!-- 设置别名的包 -->
-        <property name="typeAliasesPackage" value="com.merrill.dao.entity"/>
+        <property name="typeAliasesPackage" value="operator.com.merrill.dao.entity"/>
     </bean>
 
     <!-- 配置mapper扫描器：负责mapper对象的创建 -->
     <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer ">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        <property name="basePackage" value="com.merrill.dao.mapper"/>
+        <property name="basePackage" value="operator.com.merrill.dao.mapper"/>
     </bean>
 
     <!-- 配置事务管理器 -->

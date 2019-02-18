@@ -29,25 +29,66 @@ $(function () {
     };
     //信息面板初始化
     function infoPanelInit(){
-        $(".infoPanel").html(' <div class="info"><label class="title">申&ensp;请&ensp;人：</label><label class="user"></label></div>\n' +
+        $(".infoPanel").html('<div class="info hide"><label class="title">&emsp;</label><input type="hidden" class="id" value=""></div>\n' +
+            '        <div class="info"><label class="title">申&ensp;请&ensp;人：</label><label class="user"></label></div>\n' +
             '        <div class="info"><label class="title">地&emsp;&emsp;点：</label><label class="location"></label></div>\n' +
             '        <div class="info"><label class="title">电&emsp;&emsp;话：</label><label class="phone"></label></div>\n' +
             '        <div class="info"><label class="title">预约时间：</label><label class="beginTime"></label></div>\n' +
             '        <div class="info"><label class="title">状&emsp;&emsp;态：</label><label class="status"></label></div>\n' +
             '        <div class="info"><label class="title">处&ensp;理&ensp;人：</label><label class="operator"></label></div>\n' +
-            '        <div class="info"><label class="title">备&emsp;&emsp;注：</label><label class="userDescription"></label></div>\n'+
-            '        <div class="info"><label class="title">报修信息：</label><label class="repairment"></label></div>\n');
+            '        <div class="info"><label class="title">备&emsp;&emsp;注：</label><label class="userDescription"></label></div>\n' +
+            '        <div class="info"><label class="title">报修信息：</label><label class="repairment"></label></div>\n' +
+            '        <div class="info"><label class="title">&emsp;</label><input type="button" class="finishOrder" value="问题已解决"></div>');
         return getOrder(userID);
     };
+    //提示面板初始化
+    function helpPanelInit(){
+        $(".helpPanel").html('<div class="helpPanel_top">\n' +
+            '            <label class="helpPanel_title">帮助菜单</label>\n' +
+            '            <a href="javascript:;"><img src="/user/images/close.png" title="关闭" class="closeAction"/></a>\n' +
+            '        </div>\n' +
+            '        <iframe src="" id="helpFrame"></iframe>');
+        $("#helpFrame").css('height',"calc(100% - 55px)");
+    }
     //选择选项
     $(".form").on("change","select.select",function () {
         $(this).parents(".step").nextAll().remove();
         var selectedOptionID = $(this).find("option:selected").val();
         getNextStep(selectedOptionID);
     });
+    //点击链接
+    $(".form").on("click","a.link",function () {
+        helpPanelInit();
+        var helpHref = $(this).attr("helpHref");
+        var title = $(this).attr("title");
+        $("#helpFrame").attr("src",helpHref);
+        $(".helpPanel_title").text(title);
+        if($(this).parents(".step").hasClass("final")){
+            $("#helpFrame").css("height","calc(100% - 55px - 45px)");
+            $(".helpPanel").append('<div class="helpPanel_bottom"><input type="button" value="未解决我的网络问题" class="solveFailed"/></div>');
+        }
+        $(".helpPanel").show();
+    });
+    //点击关闭
+    $(".helpPanel").on("click",".closeAction",function () {
+        $("#helpFrame").attr("src","");
+        $(".helpPanel").hide();
+    });
+    //点击未解决
+    $(".helpPanel").on("click",".solveFailed",function () {
+        $("#helpFrame").attr("src","");
+        $(".helpPanel").hide();
+        $(".final").nextAll().remove();
+        $(".form").append(getSubmitHtml());
+    });
     //提交信息
     $(".form").on("click",".submit",function () {
         submitOrder();
+    });
+    //点击完成订单
+    $(".finishOrder").on("click",function () {
+        var orderID = $(this).parents('.infoPanel').find('.id').val();
+        finishOrder(orderID);
     });
     //获取信息面板详细信息
     function getOrder(userID) {
@@ -63,27 +104,30 @@ $(function () {
                 "data": '{\"userID\":\"'+userID+'\"}',
                 "dataType": "json",
                 "success": function (data) {
-                    if(data.id != null){
-                        $("label.user").text(data.user.name);
-                        $("label.location").text(data.location);
-                        $("label.phone").text(data.phone);
-                        $("label.beginTime").text(dateLoad(data.beginTime));
-                        $("label.status").text(getOrderStatus(data.status));
-                        $("label.operator").text(data.operator == null?"":data.operator.name);
-                        $("label.repairment").text(data.repairment);
-                        $("label.userDescription").text(data.userDescription);
-                        $(".form").hide();
-                        $(".infoPanel").show();
-                        getOrder =  true;
-                    }else{
-
-                    }
+                    setOrderInfo(data);
+                    getOrder = (data.id != null);
                 },
                 "fail": function () {
                     alert("服务器繁忙，请稍后再试");
                 },
             });
             return getOrder;
+        }
+    };
+    //信息面板详细信息置入
+    function setOrderInfo(order) {
+        if(order.id != null) {
+            $(".info>.id").val(order.id);
+            $(".info>.user").text(order.user.name);
+            $(".info>.location").text(order.location);
+            $(".info>.phone").text(order.phone);
+            $(".info>.beginTime").text(dateLoad(order.beginTime));
+            $(".info>.status").text(getOrderStatus(order.status));
+            $(".info>.operator").text(order.operator == null ? "" : order.operator.name);
+            $(".info>.repairment").text(order.repairment);
+            $(".info>.userDescription").text(order.userDescription);
+            $(".form").hide();
+            $(".infoPanel").show();
         }
     }
     //获取下一选项步骤
@@ -101,16 +145,13 @@ $(function () {
                 "dataType": "json",
                 "success": function (data) {
                     if(data.id != null){
-                        $(".form").append(getStepHtml(data));
+                        if(data.options != null && data.options.length != 0){
+                            $(".form").append(getStepHtml(data));
+                        }else{
+                            $(".form").append(getFinalStepHtml(data));
+                        }
                     }else{
-                        $(".form").append('<div class="step">\n' +
-                        '            <label class="name">备注</label>\n' +
-                        '            <div class="select-view">\n' +
-                        '                <textarea class="select userDescription input" rows="5" placeholder="请输入备注" maxlength="250"></textarea>\n' +
-                        '            </div>\n' +
-                        '        </div>');
-                        $(".form").append('<input type="button" value="提交" class="submit"><br/>' +
-                            '<div class="errorMessage"><img src="/user/images/error.png"><label></label></div>');
+                        $(".form").append(getSubmitHtml());
                     }
                     getNextStep =  true;
                 },
@@ -125,7 +166,7 @@ $(function () {
     function submitOrder() {
         var phone = $("input.phone").val();
         var location = $("input.location").val();
-        var userDescription = $("input.userDescription").text();
+        var userDescription = $("textarea.userDescription").val();
         var submitOrder = false;
         if(!isNotNull(phone)){
             $(".errorMessage>label").text("手机号不能为空！");
@@ -174,8 +215,8 @@ $(function () {
             optionsHtml += '<option class="option" value="'+step.options[i].id+'">'+step.options[i].content+'</option>\n';
         }
         var linkHtml = '<a class="link"></a>';
-        if(step.link != null &&step.link.content != null&&step.link.content != ''){
-            linkHtml += '<a class="link" href="'+step.link.name+'" title="'+step.link.content+'"><img src="../images/questionMark.png">'+step.link.content+'</a>\n';
+        if(step.link != null &&step.link.name != null&&step.link.name != ''){
+            linkHtml += '<a class="link" helpHref="'+step.link.content+'" title="'+step.link.name+'"><img src="/user/images/questionMark.png">'+step.link.name+'</a>\n';
         }
         var stepHtml = ' <div class="step">\n' +
             '            <label class="name">'+step.content+'</label>\n' +
@@ -184,6 +225,23 @@ $(function () {
             '                    <option class="option default" value="-2">请选择</option>\n' +
             optionsHtml+
             '                </select>\n' +
+            '            </div>\n' +
+            linkHtml+
+            '        </div>';
+        return stepHtml;
+    };
+    //格式化最终选项步骤代码
+    function getFinalStepHtml(step) {
+        var linkHtml = '<a class="link"></a>';
+        if(step.link != null &&step.link.name != null&&step.link.name != ''){
+            linkHtml = '<a class="link" helpHref="'+step.link.content+'" title="'+step.link.name+'"><img src="/user/images/questionMark.png">'+step.link.name+'</a>\n';
+        }
+        var stepHtml = ' <div class="step final">\n' +
+            '            <label class="name">&emsp;</label>\n' +
+            '            <div class="select-view">\n' +
+            '                <label class="select red">\n' +
+            step.name+
+            '                </label>\n' +
             '            </div>\n' +
             linkHtml+
             '        </div>';
@@ -204,4 +262,37 @@ $(function () {
         });
         return result;
     };
+    //格式化备注以及提交按钮
+    function getSubmitHtml() {
+        var submitHtml = '<div class="step">\n' +
+            '            <label class="name">备注</label>\n' +
+            '            <div class="select-view">\n' +
+            '                <textarea class="select userDescription input" rows="5" placeholder="请输入备注" maxlength="250"></textarea>\n' +
+            '            </div>\n' +
+            '        </div>\n' +
+            '<input type="button" value="提交" class="submit"><br/>' +
+            '<div class="errorMessage"><img src="/user/images/error.png"><label></label></div>';
+        return submitHtml;
+    };
+    function finishOrder(orderID){
+        $.ajax({
+            "url": "/user/finishOrder",
+            "method": "post",
+            "headers": {
+                "Content-Type": "application/json",
+            },
+            "data": '{\"orderID\":\"'+orderID+'\"}',
+            "dataType": "json",
+            "success": function (data) {
+                if(data.message == 'true'){
+                    pageInit();
+                }else{
+                    alert(data.message);
+                }
+            },
+            "fail": function () {
+                alert("服务器繁忙，请稍后再试");
+            },
+        });
+    }
 });

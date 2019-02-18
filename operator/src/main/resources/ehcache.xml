@@ -1,89 +1,60 @@
-<!--è¦æ‹·è´mybatisä¸­çš„ehcacheæ–‡ä»¶çš„jaråŒ…-->
-<ehcache>
-    <diskStore path="java.io.tmpdir"/>
+<?xml version="1.0" encoding="gbk"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+    <diskStore path="java.io.tmpdir/test1"/>
     <!--
-    cache ï¼šè‡ªå®šçš„ç¼“å­˜ï¼Œå½“è‡ªå®šçš„é…ç½®ä¸æ»¡è¶³å®žé™…æƒ…å†µæ—¶å¯ä»¥é€šè¿‡è‡ªå®šä¹‰ï¼ˆå¯ä»¥åŒ…å«å¤šä¸ªcacheèŠ‚ç‚¹ï¼‰
-    name : ç¼“å­˜çš„åç§°ï¼Œå¯ä»¥é€šè¿‡æŒ‡å®šåç§°èŽ·å–æŒ‡å®šçš„æŸä¸ªCacheå¯¹è±¡
-    maxElementsInMemory ï¼šå†…å­˜ä¸­å…è®¸å­˜å‚¨çš„æœ€å¤§çš„å…ƒç´ ä¸ªæ•°ï¼Œ0ä»£è¡¨æ— é™ä¸ª
-    clearOnFlushï¼šå†…å­˜æ•°é‡æœ€å¤§æ—¶æ˜¯å¦æ¸…é™¤ã€‚
-    eternal ï¼šè®¾ç½®ç¼“å­˜ä¸­å¯¹è±¡æ˜¯å¦ä¸ºæ°¸ä¹…çš„ï¼Œå¦‚æžœæ˜¯ï¼Œè¶…æ—¶è®¾ç½®å°†è¢«å¿½ç•¥ï¼Œå¯¹è±¡ä»Žä¸è¿‡æœŸã€‚æ ¹æ®å­˜å‚¨æ•°æ®çš„ä¸åŒï¼Œä¾‹å¦‚ä¸€äº›é™æ€ä¸å˜çš„æ•°æ®å¦‚çœå¸‚åŒºç­‰å¯ä»¥è®¾ç½®ä¸ºæ°¸ä¸è¿‡æ—¶
-    timeToIdleSeconds ï¼š è®¾ç½®å¯¹è±¡åœ¨å¤±æ•ˆå‰çš„å…è®¸é—²ç½®æ—¶é—´ï¼ˆå•ä½ï¼šç§’ï¼‰ã€‚ä»…å½“eternal=falseå¯¹è±¡ä¸æ˜¯æ°¸ä¹…æœ‰æ•ˆæ—¶ä½¿ç”¨ï¼Œå¯é€‰å±žæ€§ï¼Œé»˜è®¤å€¼æ˜¯0ï¼Œä¹Ÿå°±æ˜¯å¯é—²ç½®æ—¶é—´æ— ç©·å¤§ã€‚
-    timeToLiveSeconds ï¼šç¼“å­˜æ•°æ®çš„ç”Ÿå­˜æ—¶é—´ï¼ˆTTLï¼‰ï¼Œä¹Ÿå°±æ˜¯ä¸€ä¸ªå…ƒç´ ä»Žæž„å»ºåˆ°æ¶ˆäº¡çš„æœ€å¤§æ—¶é—´é—´éš”å€¼ï¼Œè¿™åªèƒ½åœ¨å…ƒç´ ä¸æ˜¯æ°¸ä¹…é©»ç•™æ—¶æœ‰æ•ˆï¼Œå¦‚æžœè¯¥å€¼æ˜¯0å°±æ„å‘³ç€å…ƒç´ å¯ä»¥åœé¡¿æ— ç©·é•¿çš„æ—¶é—´ã€‚
-    overflowToDisk ï¼šå†…å­˜ä¸è¶³æ—¶ï¼Œæ˜¯å¦å¯ç”¨ç£ç›˜ç¼“å­˜ã€‚
-    maxEntriesLocalDiskï¼šå½“å†…å­˜ä¸­å¯¹è±¡æ•°é‡è¾¾åˆ°maxElementsInMemoryæ—¶ï¼ŒEhcacheå°†ä¼šå¯¹è±¡å†™åˆ°ç£ç›˜ä¸­ã€‚
-    maxElementsOnDiskï¼šç¡¬ç›˜æœ€å¤§ç¼“å­˜ä¸ªæ•°ã€‚
-    diskSpoolBufferSizeMBï¼šè¿™ä¸ªå‚æ•°è®¾ç½®DiskStoreï¼ˆç£ç›˜ç¼“å­˜ï¼‰çš„ç¼“å­˜åŒºå¤§å°ã€‚é»˜è®¤æ˜¯30MBã€‚æ¯ä¸ªCacheéƒ½åº”è¯¥æœ‰è‡ªå·±çš„ä¸€ä¸ªç¼“å†²åŒºã€‚
-    diskPersistentï¼šæ˜¯å¦åœ¨VMé‡å¯æ—¶å­˜å‚¨ç¡¬ç›˜çš„ç¼“å­˜æ•°æ®ã€‚é»˜è®¤å€¼æ˜¯falseã€‚
-    diskExpiryThreadIntervalSecondsï¼šç£ç›˜å¤±æ•ˆçº¿ç¨‹è¿è¡Œæ—¶é—´é—´éš”ï¼Œé»˜è®¤æ˜¯120ç§’ã€‚
+        ¼¯Èº¶àÌ¨·þÎñÆ÷ÖÐµÄ»º´æ£¬ÕâÀïÊÇÒªÍ¬²½Ò»Ð©·þÎñÆ÷µÄ»º´æ
+        server1 hostName:192.168.8.9 port:400001 cacheName:mobileCache
+        server2 hostName:192.168.8.32 port:400002 cacheName:mobileCache
+        ×¢Òâ£ºÃ¿Ì¨ÒªÍ¬²½»º´æµÄ·þÎñÆ÷µÄRMIÍ¨ÐÅsocket¶Ë¿Ú¶¼²»Ò»Ñù£¬ÔÚÅäÖÃµÄÊ±ºò×¢ÒâÉèÖÃ
     -->
-    <!-- é»˜è®¤çš„cacheé…ç½®ï¼Œç›¸å½“äºŽæ˜¯å…¬å…±çš„ï¼Œå¦‚æžœæ²¡æœ‰è®¾ç½®ä½¿ç”¨å“ªä¸€ä¸ªç¼“å­˜åŒºåŸŸï¼Œå°±ä½¿ç”¨è¯¥é»˜è®¤çš„åŒºåŸŸ -->
-    <defaultCache
-            maxElementsInMemory="10000"
-            maxElementsOnDisk="0"
-            eternal="true"
-            overflowToDisk="true"
-            diskPersistent="false"
-            timeToIdleSeconds="0"
-            timeToLiveSeconds="0"
-            diskSpoolBufferSizeMB="50"
-            diskExpiryThreadIntervalSeconds="120"
-            memoryStoreEvictionPolicy="LFU"
-    />
-    <!-- ç™»å½•è®°å½•ç¼“å­˜ é”å®š10åˆ†é’Ÿ -->
-    <cache name="passwordRetryCache"
-           maxEntriesLocalHeap="2000"
+    <!-- server1 µÄcacheManagerPeerProviderFactoryÅäÖÃ -->
+    <cacheManagerPeerProviderFactory
+            class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+            properties="hostName=localhost,
+        port=40002,
+        socketTimeoutMillis=2000,
+        peerDiscovery=manual,
+        rmiUrls=//localhost:40001/mobileCache"/>
+    <defaultCache maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="30" timeToLiveSeconds="30" overflowToDisk="false"/>
+
+    <cacheManagerPeerListenerFactory
+            class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+            properties="hostName=localhost, port=40002,
+        socketTimeoutMillis=2000"/>
+
+    <!--
+    ÅäÖÃ×Ô¶¨Òå»º´æ
+    maxElementsInMemory£º»º´æÖÐÔÊÐí´´½¨µÄ×î´ó¶ÔÏóÊý
+    eternal£º»º´æÖÐ¶ÔÏóÊÇ·ñÎªÓÀ¾ÃµÄ£¬Èç¹ûÊÇ£¬³¬Ê±ÉèÖÃ½«±»ºöÂÔ£¬¶ÔÏó´Ó²»¹ýÆÚ¡£
+    timeToIdleSeconds£º»º´æÊý¾Ý¿ÕÏÐµÄ×î´óÊ±¼ä£¬Ò²¾ÍÊÇËµÈç¹ûÓÐÒ»¸ö»º´æÓÐ¶à¾ÃÃ»ÓÐ±»·ÃÎÊ¾Í»á±»Ïú»Ù£¬Èç¹û¸ÃÖµÊÇ 0 ¾ÍÒâÎ¶×ÅÔªËØ¿ÉÒÔÍ£¶ÙÎÞÇî³¤µÄÊ±¼ä¡£
+    timeToLiveSeconds£º»º´æÊý¾Ý´æ»îµÄÊ±¼ä£¬»º´æ¶ÔÏó×î´óµÄµÄ´æ»îÊ±¼ä£¬³¬¹ýÕâ¸öÊ±¼ä¾Í»á±»Ïú»Ù£¬ÕâÖ»ÄÜÔÚÔªËØ²»ÊÇÓÀ¾Ã×¤ÁôÊ±ÓÐÐ§£¬Èç¹û¸ÃÖµÊÇ0¾ÍÒâÎ¶×ÅÔªËØ¿ÉÒÔÍ£¶ÙÎÞÇî³¤µÄÊ±¼ä¡£
+    overflowToDisk£ºÄÚ´æ²»×ãÊ±£¬ÊÇ·ñÆôÓÃ´ÅÅÌ»º´æ¡£
+    memoryStoreEvictionPolicy£º»º´æÂúÁËÖ®ºóµÄÌÔÌ­Ëã·¨¡£
+    Ã¿Ò»¸öÐ¡Ê±¸üÐÂÒ»´Î»º´æ£¨1Ð¡Ê±¹ýÆÚ£©
+    -->
+    <cache name="mobileCache"
+           maxElementsInMemory="10000"
            eternal="false"
-           timeToIdleSeconds="3600"
-           timeToLiveSeconds="0"
-           overflowToDisk="false"
-           statistics="true">
-    </cache>
-    <cache name="authorizationCache"
-           maxEntriesLocalHeap="2000"
-           eternal="false"
-           timeToIdleSeconds="3600"
-           timeToLiveSeconds="0"
-           overflowToDisk="false"
-           statistics="true">
-    </cache>
-    <cache name="authenticationCache"
-           maxEntriesLocalHeap="2000"
-           eternal="false"
-           timeToIdleSeconds="3600"
-           timeToLiveSeconds="0"
-           overflowToDisk="false"
-           statistics="true">
-    </cache>
-    <cache name="shiro-activeSessionCache"
-           maxEntriesLocalHeap="2000"
-           eternal="false"
-           timeToIdleSeconds="3600"
-           timeToLiveSeconds="0"
-           overflowToDisk="false"
-           statistics="true">
-    </cache>
-    <cache name="shiro_cache"
-           maxElementsInMemory="2000"
-           maxEntriesLocalHeap="2000"
-           eternal="false"
-           timeToIdleSeconds="0"
-           timeToLiveSeconds="0"
-           maxElementsOnDisk="0"
            overflowToDisk="true"
-           memoryStoreEvictionPolicy="FIFO"
-           statistics="true">
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+        <!--
+        RMI»º´æ·Ö²¼Í¬²½²éÕÒ classÊ¹ÓÃnet.sf.ehcache.distribution.RMICacheReplicatorFactory
+        Õâ¸ö¹¤³§Ö§³ÖÒÔÏÂÊôÐÔ£º
+        replicatePuts=true | false ¨C µ±Ò»¸öÐÂÔªËØÔö¼Óµ½»º´æÖÐµÄÊ±ºòÊÇ·ñÒª¸´ÖÆµ½ÆäËûµÄpeers¡£Ä¬ÈÏÊÇtrue¡£
+        replicateUpdates=true | false ¨C µ±Ò»¸öÒÑ¾­ÔÚ»º´æÖÐ´æÔÚµÄÔªËØ±»¸²¸ÇÊ±ÊÇ·ñÒª½øÐÐ¸´ÖÆ¡£Ä¬ÈÏÊÇtrue¡£
+        replicateRemovals= true | false ¨C µ±ÔªËØÒÆ³ýµÄÊ±ºòÊÇ·ñ½øÐÐ¸´ÖÆ¡£Ä¬ÈÏÊÇtrue¡£
+        replicateAsynchronously=true | false ¨C ¸´ÖÆ·½Ê½ÊÇÒì²½µÄª¥Ö¸¶¨ÎªtrueÊ±£¬»¹ÊÇÍ¬²½µÄ£¬Ö¸¶¨ÎªfalseÊ±¡£Ä¬ÈÏÊÇtrue¡£
+        replicatePutsViaCopy=true | false ¨C µ±Ò»¸öÐÂÔöÔªËØ±»¿½±´µ½ÆäËûµÄcacheÖÐÊ±ÊÇ·ñ½øÐÐ¸´ÖÆª¥Ö¸¶¨ÎªtrueÊ±Îª¸´ÖÆ£¬Ä¬ÈÏÊÇtrue¡£
+        replicateUpdatesViaCopy=true | false ¨C µ±Ò»¸öÔªËØ±»¿½±´µ½ÆäËûµÄcacheÖÐÊ±ÊÇ·ñ½øÐÐ¸´ÖÆª¥Ö¸¶¨ÎªtrueÊ±Îª¸´ÖÆ£¬Ä¬ÈÏÊÇtrue¡£
+        asynchronousReplicationIntervalMillis=1000
+        -->
+        <!-- ¼àÌýRMIÍ¬²½»º´æ¶ÔÏóÅäÖÃ ×¢²áÏàÓ¦µÄµÄ»º´æ¼àÌýÀà£¬ÓÃÓÚ´¦Àí»º´æÊÂ¼þ£¬Èçput,remove,update,ºÍexpire -->
+        <cacheEventListenerFactory
+                class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+                properties="replicateAsynchronously=false"/>
+        <!-- ÓÃÓÚÔÚ³õÊ¼»¯»º´æ£¬ÒÔ¼°×Ô¶¯ÉèÖÃ -->
+        <bootstrapCacheLoaderFactory  class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory"/>
     </cache>
-
-    <!--
-    ç›¸å½“äºŽè‡ªå®šä¹‰åŒºåŸŸçš„cache
-      nameä¸ºmapperçš„å…¨é™å®šå
-    -->
-    <!--<cache-->
-    <!--name="com.merrill.mybatis.hello.mapper.TeacherMapper"-->
-    <!--maxElementsInMemory="10000"-->
-    <!--eternal="true"-->
-    <!--timeToIdleSeconds="300"-->
-    <!--timeToLiveSeconds="600"-->
-    <!--overflowToDisk="true"/>-->
-
 </ehcache>
